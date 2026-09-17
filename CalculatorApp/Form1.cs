@@ -6,7 +6,7 @@ namespace CalculatorApp
 {
     public partial class Form1 : Form
     {
-        private TextBox displayBox;
+        private TextBox? displayBox;
         private int currentResult = 0;
         private string currentOperation = "";
         private bool isNewInput = true;
@@ -14,10 +14,7 @@ namespace CalculatorApp
         public Form1()
         {
             InitializeComponent();
-
-            // Initialize displayBox here to avoid CS8618 warning
             displayBox = new TextBox();
-
             SetupUI();
         }
 
@@ -26,12 +23,12 @@ namespace CalculatorApp
             this.Text = "Integer Calculator";
             this.Size = new Size(300, 400);
 
-            displayBox.Location = new Point(20, 20);
-            displayBox.Size = new Size(240, 40);
-            displayBox.Font = new Font("Arial", 20);
-            displayBox.ReadOnly = true;
-            displayBox.TextAlign = HorizontalAlignment.Right;
-            displayBox.Text = "0";
+            displayBox!.Location = new Point(20, 20);
+            displayBox!.Size = new Size(240, 40);
+            displayBox!.Font = new Font("Arial", 20);
+            displayBox!.ReadOnly = true;
+            displayBox!.TextAlign = HorizontalAlignment.Right;
+            displayBox!.Text = "0";
             this.Controls.Add(displayBox);
 
             string[] buttons = { "7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "" };
@@ -74,12 +71,12 @@ namespace CalculatorApp
             {
                 if (isNewInput)
                 {
-                    displayBox.Text = btn.Text;
+                    displayBox!.Text = btn.Text;
                     isNewInput = false;
                 }
                 else
                 {
-                    displayBox.Text += btn.Text;
+                    displayBox!.Text += btn.Text;
                 }
             }
         }
@@ -93,7 +90,7 @@ namespace CalculatorApp
                     CalculateResult();
                 }
 
-                if (int.TryParse(displayBox.Text, out int result))
+                if (int.TryParse(displayBox!.Text, out int result))
                 {
                     currentResult = result;
                 }
@@ -112,7 +109,7 @@ namespace CalculatorApp
 
         private void ClearButton_Click(object? sender, EventArgs e)
         {
-            displayBox.Text = "0";
+            displayBox!.Text = "0";
             currentResult = 0;
             currentOperation = "";
             isNewInput = true;
@@ -120,7 +117,7 @@ namespace CalculatorApp
 
         private void CalculateResult()
         {
-            if (int.TryParse(displayBox.Text, out int newValue))
+            if (int.TryParse(displayBox!.Text, out int newValue))
             {
                 switch (currentOperation)
                 {
